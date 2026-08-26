@@ -1,0 +1,74 @@
+[build-system]
+requires = ["setuptools>=80,<82"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scenicops"
+version = "0.1.0"
+description = "Engineering-first scenic mobility operations and fault collaboration agent."
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+  "fastapi>=0.116,<1.0",
+  "pydantic-settings>=2.10,<3.0",
+  "uvicorn[standard]>=0.35,<1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "httpx2>=2.9,<3.0",
+  "mypy>=1.17,<2.0",
+  "pytest>=8.4,<9.0",
+  "pytest-cov>=6.2,<8.0",
+  "ruff>=0.12,<1.0",
+]
+db = [
+  "alembic>=1.16,<2.0",
+  "psycopg[binary]>=3.2,<4.0",
+  "redis>=6.2,<8.0",
+  "sqlalchemy>=2.0,<3.0",
+]
+events = [
+  "confluent-kafka>=2.11,<4.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = [
+  "-ra",
+  "--strict-config",
+  "--strict-markers",
+  "--cov=scenicops",
+  "--cov-report=term-missing",
+  "--cov-fail-under=90",
+]
+testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["scenicops"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+extend-exclude = ["migrations"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "PT"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+packages = ["scenicops"]
+warn_unreachable = true
