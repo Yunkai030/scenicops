@@ -15,6 +15,7 @@ def test_liveness_contract(client: TestClient) -> None:
         "status": "ok",
         "service": "ScenicOps API",
         "version": "0.1.0",
+        "environment": "local",
     }
     assert response.headers["X-Trace-ID"]
 

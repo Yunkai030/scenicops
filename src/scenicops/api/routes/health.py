@@ -14,7 +14,12 @@ router = APIRouter(prefix="/health", tags=["health"])
 def liveness() -> HealthResponse:
     """Report process liveness without checking external dependencies."""
     settings = get_settings()
-    return HealthResponse(status="ok", service=settings.app_name, version=__version__)
+    return HealthResponse(
+        status="ok",
+        service=settings.app_name,
+        version=__version__,
+        environment=settings.environment,
+    )
 
 
 @router.get("/ready", response_model=ReadinessResponse)

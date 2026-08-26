@@ -13,6 +13,7 @@ class HealthResponse(BaseModel):
     status: Literal["ok"]
     service: str
     version: str
+    environment: str
 
 
 class ReadinessResponse(BaseModel):
